@@ -10,7 +10,7 @@
             margin: 0; 
             display: flex; 
             justify-content: center; 
-            align-items: center; /* This handles the vertical centering */
+            align-items: center; 
             height: 100vh; 
             width: 100vw;
             overflow: hidden; 
@@ -21,9 +21,6 @@
             width: 85%; 
             max-width: 900px;
             aspect-ratio: 1 / 1; 
-            
-            /* THE NUDGE: Change 40px to move the logo up or down */
-            /* Positive numbers move it DOWN, negative move it UP */
             transform: translateY(40px); 
         }
 
@@ -35,14 +32,17 @@
             height: auto;
             opacity: 0; 
             transition: opacity 1.2s ease-in-out; 
-            display: block; /* REMOVES WHITE SEAM */
+            /* THE SEAM KILLERS */
+            display: block;
+            vertical-align: top;
+            border: none;
+            outline: none;
         }
 
-        /* RESPONSIVE ADDITION */
         @media (max-width: 600px) {
             .container {
-                width: 95%; /* BIGGER LOGO ON PHONES */
-                transform: translateY(0); /* BETTER VERTICAL CENTERING FOR MOBILE */
+                width: 95%; 
+                transform: translateY(0); 
             }
         }
     </style>
@@ -68,17 +68,18 @@
         ];
         
         let step = 0;
-        const isMobile = window.innerWidth <= 600;
+        // Detect mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 600;
 
         function playSequence() {
             if (isMobile) {
-                // MOBILE: NO ANIMATION, LINGER ON LOGO 1 THEN REDIRECT
+                // FORCE ONLY LOGO 1 TO SHOW
                 images[1].style.opacity = "1";
+                // REDIRECT
                 setTimeout(() => { 
                     window.location.href = store; 
                 }, 2500);
             } else {
-                // DESKTOP: FULL ANIMATION
                 if (step < images.length) {
                     images[step].style.opacity = "1";
                     step++;
