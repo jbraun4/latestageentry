@@ -35,6 +35,15 @@
             height: auto;
             opacity: 0; 
             transition: opacity 1.2s ease-in-out; 
+            display: block; /* REMOVES WHITE SEAM */
+        }
+
+        /* RESPONSIVE ADDITION */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%; /* BIGGER LOGO ON PHONES */
+                transform: translateY(0); /* BETTER VERTICAL CENTERING FOR MOBILE */
+            }
         }
     </style>
 </head>
@@ -59,17 +68,26 @@
         ];
         
         let step = 0;
+        const isMobile = window.innerWidth <= 600;
 
         function playSequence() {
-            if (step < images.length) {
-                images[step].style.opacity = "1";
-                step++;
-                setTimeout(playSequence, 1300); 
-            } else {
-                // Wait 2.5 seconds after the final tagline line before redirect
+            if (isMobile) {
+                // MOBILE: NO ANIMATION, LINGER ON LOGO 1 THEN REDIRECT
+                images[1].style.opacity = "1";
                 setTimeout(() => { 
                     window.location.href = store; 
                 }, 2500);
+            } else {
+                // DESKTOP: FULL ANIMATION
+                if (step < images.length) {
+                    images[step].style.opacity = "1";
+                    step++;
+                    setTimeout(playSequence, 1300); 
+                } else {
+                    setTimeout(() => { 
+                        window.location.href = store; 
+                    }, 2500);
+                }
             }
         }
 
