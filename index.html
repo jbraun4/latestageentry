@@ -24,19 +24,36 @@
             
             /* THE NUDGE: Change 40px to move the logo up or down */
             /* Positive numbers move it DOWN, negative move it UP */
-            transform: translateY(40px);
-            overflow: hidden; /* Clips any overflow including white seams */
+            transform: translateY(40px); 
         }
 
         img { 
             position: absolute; 
-            top: -5px; /* Negative offset to hide white seam at top */
+            top: 0; 
             left: 0; 
             width: 100%; 
             height: auto;
             opacity: 0; 
-            transition: opacity 1.2s ease-in-out;
-            display: block; /* Removes inline spacing that can cause seams */
+            transition: opacity 1.2s ease-in-out; 
+        }
+
+        /* Mobile/Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                max-width: 1100px;
+                overflow: hidden; /* Clips white seam */
+            }
+
+            img {
+                top: -5px; /* Hide white seam */
+                display: block;
+            }
+
+            /* Hide all images except the first on mobile */
+            #img1, #img2, #img3, #img4 {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -52,30 +69,48 @@
 
     <script>
         const store = "https://latestagemerch.printful.me/";
-        const images = [
-            document.getElementById('img0'),
-            document.getElementById('img1'),
-            document.getElementById('img2'),
-            document.getElementById('img3'),
-            document.getElementById('img4')
-        ];
+        const isMobile = window.innerWidth <= 768;
         
-        let step = 0;
-
-        function playSequence() {
-            if (step < images.length) {
-                images[step].style.opacity = "1";
-                step++;
-                setTimeout(playSequence, 1300); 
-            } else {
-                // Wait 2.5 seconds after the final tagline line before redirect
+        if (isMobile) {
+            // Mobile: Just show first image
+            const img = document.getElementById('img0');
+            
+            function showLogo() {
+                img.style.opacity = "1";
                 setTimeout(() => { 
                     window.location.href = store; 
                 }, 2500);
             }
-        }
+            
+            window.onload = () => setTimeout(showLogo, 500);
+            
+        } else {
+            // Desktop: Full animation sequence
+            const images = [
+                document.getElementById('img0'),
+                document.getElementById('img1'),
+                document.getElementById('img2'),
+                document.getElementById('img3'),
+                document.getElementById('img4')
+            ];
+            
+            let step = 0;
 
-        window.onload = () => setTimeout(playSequence, 500);
+            function playSequence() {
+                if (step < images.length) {
+                    images[step].style.opacity = "1";
+                    step++;
+                    setTimeout(playSequence, 1300); 
+                } else {
+                    // Wait 2.5 seconds after the final tagline line before redirect
+                    setTimeout(() => { 
+                        window.location.href = store; 
+                    }, 2500);
+                }
+            }
+
+            window.onload = () => setTimeout(playSequence, 500);
+        }
     </script>
 </body>
 </html>
