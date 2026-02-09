@@ -10,7 +10,7 @@
             margin: 0; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
+            align-items: center;
             height: 100vh; 
             width: 100vw;
             overflow: hidden; 
@@ -21,29 +21,19 @@
             width: 85%; 
             max-width: 900px;
             aspect-ratio: 1 / 1; 
-            transform: translateY(40px); 
+            transform: translateY(40px);
+            overflow: hidden; /* Clips any overflow including white seams */
         }
 
         img { 
             position: absolute; 
-            top: 0; 
+            top: -1px; /* Slight negative offset to hide white seam at top */
             left: 0; 
             width: 100%; 
             height: auto;
             opacity: 0; 
-            transition: opacity 1.2s ease-in-out; 
-            /* THE SEAM KILLERS */
-            display: block;
-            vertical-align: top;
-            border: none;
-            outline: none;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                width: 95%; 
-                transform: translateY(0); 
-            }
+            transition: opacity 1.2s ease-in-out;
+            display: block; /* Removes inline spacing that can cause seams */
         }
     </style>
 </head>
@@ -51,48 +41,21 @@
 
     <div class="container">
         <img src="latestagelogo0.jpg" id="img0"> 
-        <img src="latestagelogo1.jpg" id="img1"> 
-        <img src="latestagelogo2.jpg" id="img2"> 
-        <img src="latestagelogo3.jpg" id="img3"> 
-        <img src="latestagelogo4.jpg" id="img4"> 
     </div>
 
     <script>
         const store = "https://latestagemerch.printful.me/";
-        const images = [
-            document.getElementById('img0'),
-            document.getElementById('img1'),
-            document.getElementById('img2'),
-            document.getElementById('img3'),
-            document.getElementById('img4')
-        ];
-        
-        let step = 0;
-        // Detect mobile
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 600;
+        const img = document.getElementById('img0');
 
-        function playSequence() {
-            if (isMobile) {
-                // FORCE ONLY LOGO 1 TO SHOW
-                images[1].style.opacity = "1";
-                // REDIRECT
-                setTimeout(() => { 
-                    window.location.href = store; 
-                }, 2500);
-            } else {
-                if (step < images.length) {
-                    images[step].style.opacity = "1";
-                    step++;
-                    setTimeout(playSequence, 1300); 
-                } else {
-                    setTimeout(() => { 
-                        window.location.href = store; 
-                    }, 2500);
-                }
-            }
+        function showLogo() {
+            img.style.opacity = "1";
+            // Wait 2.5 seconds before redirect
+            setTimeout(() => { 
+                window.location.href = store; 
+            }, 2500);
         }
 
-        window.onload = () => setTimeout(playSequence, 500);
+        window.onload = () => setTimeout(showLogo, 500);
     </script>
 </body>
 </html>
