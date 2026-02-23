@@ -24,13 +24,13 @@
 
         .container { 
             position: relative; 
-            width: 85%; 
-            max-width: 900px;
+            width: 48%; 
+            max-width: 504px;
             aspect-ratio: 1 / 1; 
             
-            /* Hero scaled down 30% so it fits in the window */
-            /* THE NUDGE: Change 40px to move the logo up or down */
-            transform: translateY(40px) scale(0.7); 
+            /* Hero ~20% smaller; moved up so bottom isn't cut off */
+            /* NUDGE: Positive = down, negative = up */
+            transform: translateY(-25px); 
         }
 
         img { 
