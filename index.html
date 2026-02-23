@@ -31,7 +31,7 @@
             
             /* Hero 15% larger; nudged down slightly */
             /* NUDGE: Positive = down, negative = up */
-            transform: translateY(-10px); 
+            transform: translateY(5px); 
         }
 
         img { 
@@ -74,14 +74,14 @@
                 step++;
                 setTimeout(playSequence, 1300); 
             } else {
-                // Wait 2.5 seconds after the final tagline line before redirect
+                // Brief pause after final image, then redirect
                 setTimeout(() => { 
                     window.location.href = store; 
-                }, 2500);
+                }, 1600);
             }
         }
 
-        window.onload = () => setTimeout(playSequence, 500);
+        window.onload = () => setTimeout(playSequence, 300);
     </script>
 </body>
 </html>
