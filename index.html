@@ -84,8 +84,16 @@
         }
 
         function runPhoneSplash() {
-            document.getElementById('img0').style.opacity = "1";
-            setTimeout(() => { window.location.href = store; }, 2500);
+            const img0 = document.getElementById('img0');
+            if (img0.complete) {
+                img0.style.opacity = "1";
+                setTimeout(() => { window.location.href = store; }, 2500);
+            } else {
+                img0.addEventListener('load', () => {
+                    img0.style.opacity = "1";
+                    setTimeout(() => { window.location.href = store; }, 2500);
+                });
+            }
         }
 
         if (window.matchMedia('(max-width: 768px)').matches) {
