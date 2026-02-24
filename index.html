@@ -88,13 +88,11 @@
             setTimeout(() => { window.location.href = store; }, 2500);
         }
 
-        window.onload = () => {
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                runPhoneSplash();
-            } else {
-                setTimeout(playSequence, 300);
-            }
-        };
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            document.addEventListener('DOMContentLoaded', runPhoneSplash);
+        } else {
+            window.addEventListener('load', () => setTimeout(playSequence, 300));
+        }
     </script>
 </body>
 </html>
