@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Late Stage Merch</title>
     <link rel="preload" as="image" href="latestagelogo0.jpg">
+    <link rel="preload" as="image" href="latestagelogo1.jpg">
+    <link rel="preload" as="image" href="latestagelogo2.jpg">
+    <link rel="preload" as="image" href="latestagelogo3.jpg">
+    <link rel="preload" as="image" href="latestagelogo4.jpg">
     <style>
         body { 
             background-color: #000; 
@@ -40,18 +44,34 @@
 
     <div class="container">
         <img src="latestagelogo0.jpg" id="img0" decoding="async" alt="">
+        <img src="latestagelogo1.jpg" id="img1" decoding="async" alt="">
+        <img src="latestagelogo2.jpg" id="img2" decoding="async" alt="">
+        <img src="latestagelogo3.jpg" id="img3" decoding="async" alt="">
+        <img src="latestagelogo4.jpg" id="img4" decoding="async" alt="">
     </div>
 
     <script>
         const store = "https://latestagemerch.printful.me/";
-        const splashImg = document.getElementById('img0');
+        const images = [
+            document.getElementById('img0'),
+            document.getElementById('img1'),
+            document.getElementById('img2'),
+            document.getElementById('img3'),
+            document.getElementById('img4')
+        ];
+        let step = 0;
 
-        window.onload = () => {
-            setTimeout(() => {
-                splashImg.style.opacity = "1";
+        function playSequence() {
+            if (step < images.length) {
+                images[step].style.opacity = "1";
+                step++;
+                setTimeout(playSequence, 1300);
+            } else {
                 setTimeout(() => { window.location.href = store; }, 1600);
-            }, 300);
-        };
+            }
+        }
+
+        window.onload = () => setTimeout(playSequence, 300);
     </script>
 </body>
 </html>
