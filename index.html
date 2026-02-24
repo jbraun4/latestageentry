@@ -38,6 +38,17 @@
             opacity: 0; 
             transition: opacity 1.2s ease-in-out; 
         }
+
+        /* Phone only: single logo, larger hero, no change to desktop */
+        @media (max-width: 768px) {
+            .container {
+                width: 88%;
+                max-width: 92vw;
+            }
+            #img1, #img2, #img3, #img4 {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -71,7 +82,20 @@
             }
         }
 
-        window.onload = () => setTimeout(playSequence, 300);
+        function runPhoneSplash() {
+            setTimeout(() => {
+                document.getElementById('img0').style.opacity = "1";
+                setTimeout(() => { window.location.href = store; }, 1000);
+            }, 300);
+        }
+
+        window.onload = () => {
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                runPhoneSplash();
+            } else {
+                setTimeout(playSequence, 300);
+            }
+        };
     </script>
 </body>
 </html>
