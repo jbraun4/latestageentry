@@ -6,10 +6,6 @@
     <title>Late Stage Merch</title>
     <!-- SAVED VERSION: baseline to return to if needed (web hero -15px, phone 2500ms, logo shows immediately) -->
     <link rel="preload" as="image" href="latestagelogo0.jpg">
-    <link rel="preload" as="image" href="latestagelogo1.jpg">
-    <link rel="preload" as="image" href="latestagelogo2.jpg">
-    <link rel="preload" as="image" href="latestagelogo3.jpg">
-    <link rel="preload" as="image" href="latestagelogo4.jpg">
     <style>
         body { 
             background-color: #000; 
@@ -56,10 +52,10 @@
 
     <div class="container">
         <img src="latestagelogo0.jpg" id="img0" decoding="async" alt="">
-        <img src="latestagelogo1.jpg" id="img1" decoding="async" alt="">
-        <img src="latestagelogo2.jpg" id="img2" decoding="async" alt="">
-        <img src="latestagelogo3.jpg" id="img3" decoding="async" alt="">
-        <img src="latestagelogo4.jpg" id="img4" decoding="async" alt="">
+        <img data-src="latestagelogo1.jpg" id="img1" decoding="async" alt="">
+        <img data-src="latestagelogo2.jpg" id="img2" decoding="async" alt="">
+        <img data-src="latestagelogo3.jpg" id="img3" decoding="async" alt="">
+        <img data-src="latestagelogo4.jpg" id="img4" decoding="async" alt="">
     </div>
 
     <script>
@@ -72,6 +68,15 @@
             document.getElementById('img4')
         ];
         let step = 0;
+
+        function hydrateDesktopImages() {
+            for (let i = 1; i < images.length; i++) {
+                const img = images[i];
+                if (img && img.dataset.src && !img.src) {
+                    img.src = img.dataset.src;
+                }
+            }
+        }
 
         function playSequence() {
             if (step < images.length) {
@@ -88,13 +93,14 @@
             setTimeout(() => { window.location.href = store; }, 2500);
         }
 
-        window.onload = () => {
+        document.addEventListener('DOMContentLoaded', () => {
             if (window.matchMedia('(max-width: 768px)').matches) {
                 runPhoneSplash();
             } else {
+                hydrateDesktopImages();
                 setTimeout(playSequence, 300);
             }
-        };
+        });
     </script>
 </body>
 </html>
