@@ -26,7 +26,7 @@
             width: 52.5%; 
             max-width: 548px;
             aspect-ratio: 1 / 1; 
-            transform: translateY(-24px); 
+            transform: translateY(-15px); 
         }
 
         img { 
@@ -83,10 +83,8 @@
         }
 
         function runPhoneSplash() {
-            setTimeout(() => {
-                document.getElementById('img0').style.opacity = "1";
-                setTimeout(() => { window.location.href = store; }, 2500);
-            }, 300);
+            document.getElementById('img0').style.opacity = "1";
+            setTimeout(() => { window.location.href = store; }, 2500);
         }
 
         window.onload = () => {
